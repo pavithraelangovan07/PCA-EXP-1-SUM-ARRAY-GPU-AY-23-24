@@ -221,7 +221,7 @@ int main(int argc, char **argv)
     CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
 
     // invoke kernel at host side
-    int iLen = 1023;
+    int iLen = 512;
     dim3 block (iLen);
     dim3 grid  ((nElem + block.x - 1) / block.x);
 
@@ -255,10 +255,17 @@ int main(int argc, char **argv)
     return(0);
 }
 ## OUTPUT:
+<img width="1918" height="925" alt="Screenshot 2026-02-09 092703" src="https://github.com/user-attachments/assets/f4b91852-3be4-44dc-a7d4-f6da3eab2da3" />
+
 <img width="1730" height="221" alt="Screenshot 2026-02-09 093153" src="https://github.com/user-attachments/assets/a95d9b8d-28d1-4b86-b8cb-f3d57509dfed" />
 <img width="1653" height="163" alt="Screenshot 2026-02-09 093258" src="https://github.com/user-attachments/assets/c623ed5f-6b85-4465-bc4d-9d67d515eebe" />
 <img width="1620" height="186" alt="Screenshot 2026-02-09 093219" src="https://github.com/user-attachments/assets/c57df918-fd1f-4088-a2a8-44533f5921f4" />
 
 
 ## RESULT:
-Thus, Implementation of sum arrays on host and device is done in nvcc cuda using random number.
+Using higher block sizes (1024 threads/block, as in Exp4) gives the fastest execution.
+
+A slightly smaller block size (1023 threads/block, Exp3) leads to a significant slowdown, likely due to inefficient warps and uncoalesced memory access.
+
+Differences between other combinations are very small (<0.001 sec), showing that GPU execution is fairly stable with different grid/block splits, except when block size is near but not exactly a power of 2.
+
