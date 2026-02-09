@@ -221,7 +221,7 @@ int main(int argc, char **argv)
     CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
 
     // invoke kernel at host side
-    int iLen = 512;
+    int iLen = 1023;
     dim3 block (iLen);
     dim3 grid  ((nElem + block.x - 1) / block.x);
 
@@ -255,7 +255,9 @@ int main(int argc, char **argv)
     return(0);
 }
 ## OUTPUT:
-<img width="1918" height="925" alt="image" src="https://github.com/user-attachments/assets/f2096efb-074d-4cab-96e3-e64528d4a8aa" />
+<img width="1730" height="221" alt="Screenshot 2026-02-09 093153" src="https://github.com/user-attachments/assets/a95d9b8d-28d1-4b86-b8cb-f3d57509dfed" />
+<img width="1653" height="163" alt="Screenshot 2026-02-09 093258" src="https://github.com/user-attachments/assets/c623ed5f-6b85-4465-bc4d-9d67d515eebe" />
+<img width="1620" height="186" alt="Screenshot 2026-02-09 093219" src="https://github.com/user-attachments/assets/c57df918-fd1f-4088-a2a8-44533f5921f4" />
 
 
 ## RESULT:
